@@ -1,0 +1,69 @@
+/* projects.css — Projects archive (tabs: Systems / Full Games) */
+
+.arc-hero { padding-top: calc(var(--nav-h) + 80px); padding-bottom: 8px; }
+.arc-hero .eyebrow { margin-bottom: 18px; }
+.arc-hero h1 { font-size: clamp(44px, 7vw, 96px); }
+.arc-hero h1 .stroke { color: transparent; -webkit-text-stroke: 2px var(--text); }
+.arc-hero .lead { margin-top: 22px; font-size: clamp(18px, 2.1vw, 23px); color: var(--text-dim); max-width: 58ch; text-wrap: pretty; }
+
+/* sticky tab bar */
+.tabbar-wrap { position: sticky; top: 14px; z-index: 100; margin-top: 40px; }
+.tabbar {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding: 9px; border-radius: var(--r-pill);
+  border: 2px solid var(--ink); background: color-mix(in oklab, var(--surface) 82%, transparent);
+  backdrop-filter: blur(14px) saturate(1.3); box-shadow: var(--sh-1);
+  width: max-content; max-width: 100%;
+}
+.tab {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 17px;
+  padding: 11px 22px; border-radius: 999px; color: var(--text-dim);
+  border: 2px solid transparent;
+  transition: color .2s ease, background .25s var(--spring), transform .25s var(--spring);
+}
+.tab:hover { color: var(--text); transform: translateY(-1px); }
+.tab.active { color: var(--on-primary); background: var(--primary); border-color: var(--ink); box-shadow: 0 3px 0 -1px var(--ink); }
+.tab .count {
+  font-family: "Nunito"; font-weight: 800; font-size: 13px; line-height: 1;
+  padding: 4px 9px; border-radius: 999px; background: color-mix(in oklab, var(--ink) 35%, transparent);
+}
+.tab.active .count { background: color-mix(in oklab, var(--on-primary) 20%, transparent); }
+
+/* filter chips */
+.filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 34px 0 6px; }
+.filters .flabel { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 14px; color: var(--text-dim); margin-right: 4px; }
+.fchip {
+  font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 14px;
+  padding: 8px 16px; border-radius: 999px; color: var(--text);
+  border: 2px solid var(--ink); background: var(--surface);
+  box-shadow: 0 2px 0 -1px var(--ink);
+  transition: transform .22s var(--spring), background .2s ease, color .2s ease;
+}
+.fchip:hover { transform: translateY(-2px); }
+.fchip.active { background: var(--accent); color: var(--on-accent); }
+
+/* panels */
+.arc-panel { padding-top: 34px; padding-bottom: 20px; }
+.arc-panel[hidden] { display: none; }
+
+/* count-up of card entrance */
+.arc-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 22px; }
+.arc-grid .work-card { grid-column: span 2; }
+.arc-grid .work-card.feat { grid-column: span 3; }
+@media (max-width: 980px) { .arc-grid { grid-template-columns: repeat(2, 1fr); } .arc-grid .work-card, .arc-grid .work-card.feat { grid-column: span 1; } }
+@media (max-width: 560px) { .arc-grid { grid-template-columns: 1fr; } }
+
+/* games alternate to a wider media layout */
+.arc-grid.games { grid-template-columns: 1fr 1fr; }
+.arc-grid.games .work-card { grid-column: auto; }
+@media (max-width: 720px) { .arc-grid.games { grid-template-columns: 1fr; } }
+
+.empty-note { color: var(--text-dim); font-weight: 700; padding: 40px 0; text-align: center; }
+
+/* fade swap */
+.arc-panel.swapping { opacity: 0; transform: translateY(10px); }
+.arc-panel { transition: opacity .3s ease, transform .3s var(--spring); }
+
+/* archive footer */
+.arc-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 30px 0 44px; margin-top: 30px; border-top: 1.5px dashed color-mix(in oklab, var(--text-dim) 30%, transparent); color: var(--text-dim); font-size: 14px; font-weight: 700; }
