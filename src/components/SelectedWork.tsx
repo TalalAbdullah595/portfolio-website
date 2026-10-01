@@ -6,8 +6,8 @@ import { SYSTEMS, GAMES, type Project } from "@/data/content";
 
 const by = (arr: Project[], id: string) => arr.find((x) => x.id === id)!;
 
-const FEATURE = [by(SYSTEMS, "apex-matchmaking"), by(SYSTEMS, "hex-combat")];
-const REST = [by(SYSTEMS, "sentinel-anticheat"), by(GAMES, "striker-fc"), by(GAMES, "mesozoic")];
+const FEATURE = [by(SYSTEMS, "combat-revamp"), by(SYSTEMS, "roblox-website")];
+const REST = [by(SYSTEMS, "pack-opening"), by(GAMES, "saudi-heritage"), by(SYSTEMS, "cyber-jump")];
 const TOTAL = SYSTEMS.length + GAMES.length;
 
 export default function SelectedWork() {

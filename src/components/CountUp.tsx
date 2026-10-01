@@ -16,6 +16,7 @@ export default function CountUp({ end, suf = "", dur = 1500, dp }: {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    let snap = 0;
     const io = new IntersectionObserver((es) => {
       es.forEach((e) => {
         if (e.isIntersecting && !fired.current) {
@@ -28,11 +29,14 @@ export default function CountUp({ end, suf = "", dur = 1500, dp }: {
             if (p < 1) requestAnimationFrame(step);
           };
           requestAnimationFrame(step);
+          /* rAF stops firing in background tabs, which would strand a
+             half-counted number on screen. Guarantee the real value lands. */
+          snap = window.setTimeout(() => setVal(end), dur + 300);
         }
       });
     }, { threshold: 0.45 });
     io.observe(el);
-    return () => io.disconnect();
+    return () => { io.disconnect(); clearTimeout(snap); };
   }, [end, dur]);
 
   const decimals = dp != null ? dp : (Number.isInteger(end) ? 0 : (String(end).split(".")[1] || "").length);

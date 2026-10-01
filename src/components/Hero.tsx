@@ -10,16 +10,16 @@ export default function Hero() {
     <header className="hero wrap" id="top">
       <div className="hero-grid">
         <div className="hero-copy">
-          <div className="hero-badge reveal"><span className="pulse"></span> Available for Q3 2026 builds</div>
+          <div className="hero-badge reveal"><span className="pulse"></span> Available for new projects</div>
           <h1>
             <span className="row reveal" data-delay="40">I build games</span>
             <span className="row reveal" data-delay="120">players <span className="wobble">can&apos;t</span></span>
             <span className="row reveal" data-delay="200">put down.</span>
           </h1>
           <p className="hero-sub reveal" data-delay="280">
-            Freelance <b>Roblox scripter &amp; game developer</b>. I engineer the combat,
-            matchmaking, and anti-cheat systems that turn a fun idea into a game people
-            sink <b>hundreds of hours</b> into — fast, fair, and unbreakable.
+            Freelance <b>Roblox developer &amp; Luau scripter</b>. I build the combat, progression,
+            and player-data systems that turn a fun idea into a game people keep coming back
+            to — server-authoritative, modular, and <b>still easy to extend three updates later</b>.
           </p>
           <div className="hero-cta reveal" data-delay="340">
             <Magnetic strength={0.4}>

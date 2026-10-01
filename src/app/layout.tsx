@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fredoka, Nunito } from "next/font/google";
 import "./globals.css";
 import CursorFx from "@/components/CursorFx";
+import { SITE } from "@/data/content";
 
 const fredoka = Fredoka({
   variable: "--font-fredoka",
@@ -14,9 +15,8 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Kai Voss — Roblox Scripter & Game Developer",
-  description:
-    "Freelance Roblox scripter & game developer. Combat, matchmaking, and anti-cheat systems that turn a fun idea into a game people sink hundreds of hours into — fast, fair, and unbreakable.",
+  title: `${SITE.name} — ${SITE.roleLong}`,
+  description: SITE.tagline,
 };
 
 export default function RootLayout({

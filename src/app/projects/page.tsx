@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import ProjectsArchive from "@/components/ProjectsArchive";
 import PageFooter from "@/components/PageFooter";
+import { SITE } from "@/data/content";
 
 export const metadata: Metadata = {
-  title: "Projects — Kai Voss",
+  title: `Projects — ${SITE.name}`,
   description: "A complete look at what I've built — the reusable systems I script and the full games they power.",
 };
 

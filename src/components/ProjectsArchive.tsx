@@ -5,7 +5,8 @@ import WorkCard from "@/components/WorkCard";
 import { SYSTEMS, GAMES } from "@/data/content";
 import { startReveals } from "@/lib/reveal";
 
-const TIERS = ["All", "Sprint", "Project", "Partnership"] as const;
+/* derived from the data so a filter chip never outlives its projects */
+const TIERS = ["All", ...new Set(SYSTEMS.map((s) => s.tier))];
 type Tier = (typeof TIERS)[number];
 type Tab = "systems" | "games";
 

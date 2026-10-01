@@ -2,12 +2,13 @@
 
 import { useState, type FormEvent } from "react";
 import Icon, { type IconName } from "@/components/Icon";
+import { SITE } from "@/data/content";
 
 const POINTS: { ic: IconName; l: string; v: string }[] = [
-  { ic: "mail", l: "Email", v: "kai@vossystems.dev" },
-  { ic: "chat", l: "Discord", v: "kaivoss" },
-  { ic: "clock", l: "Replies within", v: "1 business day" },
-  { ic: "pin", l: "Based in", v: "Auckland · works UTC-friendly" },
+  { ic: "mail", l: "Email", v: SITE.email },
+  { ic: "chat", l: "Discord", v: SITE.discord },
+  { ic: "clock", l: "Replies within", v: SITE.replyTime },
+  { ic: "pin", l: "Based in", v: `${SITE.location} · works ${SITE.timezone}` },
 ];
 
 export default function Contact() {
@@ -23,7 +24,7 @@ export default function Contact() {
         <div className="contact-aside">
           <span className="eyebrow" style={{ color: "var(--text)" }}>Let&apos;s talk</span>
           <h2>Tell me what&apos;s<br />breaking.</h2>
-          <p>Whether it&apos;s a queue that&apos;s too slow, an economy that&apos;s leaking, or a system you haven&apos;t started yet — send the details and I&apos;ll come back with a plan.</p>
+          <p>Whether it&apos;s combat that doesn&apos;t feel right, data that keeps corrupting, or a system you haven&apos;t started yet — send the details and I&apos;ll come back with a plan.</p>
           <ul className="contact-points">
             {POINTS.map((p, i) => (
               <li key={i}>

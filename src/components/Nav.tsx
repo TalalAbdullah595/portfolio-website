@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Icon from "@/components/Icon";
+import { SITE } from "@/data/content";
 
 type Variant = "home" | "projects" | "project";
 
@@ -70,7 +71,7 @@ export default function Nav({ variant = "home" }: { variant?: Variant }) {
   const brand = (
     <>
       <span className="mark"><Icon name="cube" size={22} /></span>
-      <span>Kai Voss<small>Roblox Scripter</small></span>
+      <span>{SITE.name}<small>{SITE.role}</small></span>
     </>
   );
 

@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Icon from "@/components/Icon";
 import CountUp from "@/components/CountUp";
 import ReadProgress from "@/components/ReadProgress";
+import VideoEmbed from "@/components/VideoEmbed";
 import RevealFx from "@/components/RevealFx";
 import PageFooter from "@/components/PageFooter";
-import { SYSTEMS, GAMES, getProject, projectType, type Outcome, type Project } from "@/data/content";
+import { SITE, SYSTEMS, GAMES, getProject, projectType, type Outcome, type Project } from "@/data/content";
 
 export function generateStaticParams() {
   return [...SYSTEMS, ...GAMES].map((p) => ({ slug: p.id }));
@@ -17,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const item = getProject(slug);
   if (!item) return {};
-  return { title: `${item.name} — Kai Voss`, description: item.summary };
+  return { title: `${item.name} — ${SITE.name}`, description: item.summary };
 }
 
 function Stat({ o }: { o: Outcome }) {
@@ -67,23 +69,42 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <header className="proj-hero">
           <div className="crumbs reveal">
             <span className="chip solid">{typeLabel}</span>
-            <span className="chip">{item.tier} engagement</span>
+            {/* a Game System's tier repeats its type label — don't print it twice */}
+            {item.tier !== typeLabel && <span className="chip">{item.tier}</span>}
             {item.featured && <span className="chip dot">Featured work</span>}
             {item.wip && <span className="chip">In development</span>}
           </div>
           <span className="eyebrow reveal" style={{ color: accent }}>{item.kicker}</span>
           <h1 className="reveal">{item.name}</h1>
           <p className="lead reveal">{item.summary}</p>
+          {item.liveUrl && (
+            <p className="reveal" style={{ marginTop: 22 }}>
+              <a href={item.liveUrl} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                <Icon name="play" size={18} /> Play it on Roblox
+              </a>
+            </p>
+          )}
           <div className="pstats">
             {item.outcomes.map((o, i) => <Stat key={i} o={o} />)}
           </div>
         </header>
 
         <section className="proj-media">
+          {item.video && <VideoEmbed id={item.video} title={`${item.name} — devlog`} />}
           <div className="media-grid reveal">
-            <div className="media-slot media-main">Main screenshot of {item.name} — coming soon</div>
-            <div className="media-slot media-side">Detail shot — coming soon</div>
-            <div className="media-slot media-side">Detail shot — coming soon</div>
+            {item.images?.length
+              ? item.images.slice(0, 3).map((src, i) => (
+                <div className={"media-frame " + (i === 0 ? "media-main" : "media-side")} key={src}>
+                  <Image src={src} alt={`${item.name} screenshot ${i + 1}`} fill sizes="(max-width: 760px) 100vw, 66vw" />
+                </div>
+              ))
+              : (
+                <>
+                  <div className="media-slot media-main">Main screenshot of {item.name} — coming soon</div>
+                  <div className="media-slot media-side">Detail shot — coming soon</div>
+                  <div className="media-slot media-side">Detail shot — coming soon</div>
+                </>
+              )}
           </div>
         </section>
 
@@ -138,10 +159,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </section>
         )}
 
-        <div className="pn-grid">
-          <PnCard entry={prev} dir="prev" typeLabel={typeLabel} />
-          <PnCard entry={next} dir="next" typeLabel={typeLabel} />
-        </div>
+        {/* a one-entry list would make both cards link back to this page */}
+        {list.length > 1 && (
+          <div className="pn-grid">
+            <PnCard entry={prev} dir="prev" typeLabel={typeLabel} />
+            <PnCard entry={next} dir="next" typeLabel={typeLabel} />
+          </div>
+        )}
 
         <section className="proj-cta reveal">
           <h2>Want something like {item.name}?</h2>
