@@ -110,11 +110,13 @@ export interface Engagement {
 }
 
 export interface Testimonial {
-  stars: number;
   text: string;
   nm: string;
-  role: string;
   mono: string;
+  /* both optional — a rating or a role is only shown when the real one is
+     known, never filled in to make a card look complete */
+  stars?: number;
+  role?: string;
 }
 
 export const SYSTEMS: Project[] = [
@@ -561,11 +563,16 @@ export const HOME = {
     "Lag Compensation", "Live Ops", "Tooling & DX",
   ],
   testimonials: [
-    { stars: 5, text: "Kai is the rare engineer who makes the hard infrastructure invisible. Our players just feel that it's better.", nm: "Dana Okafor", role: "Exec Producer, Tracer Studios", mono: "DO" },
-    { stars: 5, text: "Sentinel stopped our dupe economy bleeding in a week. Easiest ROI we've ever signed off on.", nm: "Priya Nandakumar", role: "Owner, Vaultworks", mono: "PN" },
-    { stars: 5, text: "He writes systems my team can actually own after he leaves. The docs alone were worth it.", nm: "Theo Bianchi", role: "Eng Lead, Brightline", mono: "TB" },
-    { stars: 5, text: "First Roblox combat that's ever felt genuinely fair. Hex Combat is a cheat code for retention.", nm: "Marcus Hale", role: "Game Director, Ironhide", mono: "MH" },
-    { stars: 5, text: "Our designers ship a week of content in an afternoon now. Quest Engine changed how we work.", nm: "Sofia Lindqvist", role: "Content Lead, Mythwright", mono: "SL" },
-    { stars: 5, text: "Calm, senior, and impossible to rattle during a live incident. I'd hire Kai for anything.", nm: "Iris Vance", role: "Creative Director, Skybound", mono: "IV" },
+    {
+      text: "I just wanted to take a moment to say a huge thank you for all the incredible work you've been putting into the project. Every time you push an update, the game looks and feels significantly better. The progress on the team system, infection mechanics, and visual effects is awesome, and I'm really excited about how it's coming together.",
+      nm: "Nickolas Lionberger", mono: "NL",
+    },
+    {
+      text: "He did exactly what I needed for my car scripts for my roleplay game it took like 3 weeks but it was worth every penny and it was a good time frame of 3 weeks because it was like 50+ cars. THANK YOU FOR YOUR HELP I WILL COME BACK FOR MORE HELP IN THE FUTURE.",
+      nm: "coguardianx", mono: "CO",
+    },
+    { text: "Very good guy working with him was stress free", nm: "mecronixa", mono: "ME" },
+    { text: "Good Job well Done", nm: "varela_kris", mono: "VK" },
+    { text: "Good Job well Done", nm: "adeyonugenesis2", mono: "AD" },
   ] satisfies Testimonial[],
 };

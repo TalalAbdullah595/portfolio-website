@@ -1,3 +1,5 @@
+import { readdirSync } from "node:fs";
+import { join } from "node:path";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,6 +22,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const item = getProject(slug);
   if (!item) return {};
   return { title: `${item.name} — ${SITE.name}`, description: item.summary };
+}
+
+/* Read at build time so dropping a file into public/projects/<id>/ is all it
+   takes — no code edit per screenshot. Filenames sort into display order
+   (cover, shot1, shot2); a project's own `images` overrides this. */
+function projectImages(id: string): string[] {
+  try {
+    return readdirSync(join(process.cwd(), "public", "projects", id))
+      .filter((f) => /\.(webp|avif|png|jpe?g)$/i.test(f))
+      .sort()
+      .map((f) => `/projects/${id}/${f}`);
+  } catch {
+    return []; // no folder yet
+  }
 }
 
 function Stat({ o }: { o: Outcome }) {
@@ -59,6 +75,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const prev = list[(idx - 1 + list.length) % list.length];
   const next = list[(idx + 1) % list.length];
   const typeLabel = type === "game" ? "Full Game" : "Game System";
+  const images = item.images ?? projectImages(item.id);
   const accent = `var(--${item.accent})`;
 
   return (
@@ -92,10 +109,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <section className="proj-media">
           {item.video && <VideoEmbed id={item.video} title={`${item.name} — devlog`} />}
           <div className="media-grid reveal">
-            {item.images?.length
-              ? item.images.slice(0, 3).map((src, i) => (
+            {images.length
+              ? images.slice(0, 3).map((src, i) => (
                 <div className={"media-frame " + (i === 0 ? "media-main" : "media-side")} key={src}>
-                  <Image src={src} alt={`${item.name} screenshot ${i + 1}`} fill sizes="(max-width: 760px) 100vw, 66vw" />
+                  <Image
+                    src={src}
+                    alt={`${item.name} screenshot ${i + 1}`}
+                    fill
+                    sizes={i === 0 ? "(max-width: 760px) 100vw, 790px" : "(max-width: 760px) 100vw, 390px"}
+                  />
                 </div>
               ))
               : (

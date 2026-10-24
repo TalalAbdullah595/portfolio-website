@@ -10,13 +10,15 @@ function Row({ items, reverse = false }: { items: Testimonial[]; reverse?: boole
       <div className="marquee-track">
         {loop.map((t, i) => (
           <div className="card tcard spotlight" key={i} aria-hidden={i >= items.length || undefined}>
-            <div className="stars">{Array.from({ length: t.stars }).map((_, k) => <Icon key={k} name="star" size={16} />)}</div>
+            {t.stars ? (
+              <div className="stars">{Array.from({ length: t.stars }).map((_, k) => <Icon key={k} name="star" size={16} />)}</div>
+            ) : null}
             <blockquote>&ldquo;{t.text}&rdquo;</blockquote>
             <div className="who">
               <span className="av glyph3d txt" style={{ fontSize: 16, color: "var(--accent)" }}>{t.mono}</span>
               <div>
                 <div className="nm">{t.nm}</div>
-                <div className="rl">{t.role}</div>
+                {t.role && <div className="rl">{t.role}</div>}
               </div>
             </div>
           </div>
@@ -32,10 +34,12 @@ export default function Reception() {
     <section className="recep section-pad" id="reception">
       <div className="wrap" style={{ textAlign: "center", marginBottom: 44 }}>
         <span className="eyebrow reveal" style={{ justifyContent: "center" }}>Reception</span>
-        <h2 className="section-title reveal" data-delay="60">Studios keep<br />coming back.</h2>
+        <h2 className="section-title reveal" data-delay="60">Clients keep<br />coming back.</h2>
       </div>
+      {/* one row: five reviews across two rows reads as padding, and two of
+          them are word-for-word identical. Add the reverse row back when
+          there are enough to fill it. */}
       <Row items={T} />
-      <Row items={[...T].reverse()} reverse />
     </section>
   );
 }
