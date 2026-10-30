@@ -37,10 +37,10 @@ export const SITE = {
     { ic: "upwork", l: "Upwork", href: "https://www.upwork.com/freelancers/~016444093287db982d" },
     { ic: "fiverr", l: "Fiverr", href: "https://www.fiverr.com/s/LdwWjj4" },
     { ic: "chat", l: "Discord", handle: "_alpha2002" },
-    { ic: "github", l: "GitHub" },
-    { ic: "play", l: "Roblox" },
+    { ic: "github", l: "GitHub", href: "https://github.com/TalalAbdullah595" },
+    { ic: "play", l: "Roblox", href: "https://www.roblox.com/users/325201023/profile" },
     { ic: "youtube", l: "YouTube", href: "https://www.youtube.com/@ALPHA-d5d" },
-    { ic: "x", l: "X / Twitter" },
+    { ic: "x", l: "X / Twitter", href: "https://x.com/Talal_Abdullah6" },
   ] satisfies Social[],
 };
 
