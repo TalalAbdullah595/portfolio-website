@@ -19,7 +19,7 @@ export default function Hero() {
           <p className="hero-sub reveal" data-delay="280">
             Freelance <b>Roblox developer &amp; Luau scripter</b>. I build the combat, progression,
             and player-data systems that turn a fun idea into a game people keep coming back
-            to — server-authoritative, modular, and <b>still easy to extend three updates later</b>.
+            to. Server-authoritative, modular, and <b>still easy to extend three updates later</b>.
           </p>
           <div className="hero-cta reveal" data-delay="340">
             <Magnetic strength={0.4}>

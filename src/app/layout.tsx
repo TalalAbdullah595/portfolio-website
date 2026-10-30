@@ -15,7 +15,7 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: `${SITE.name} — ${SITE.roleLong}`,
+  title: `${SITE.name} · ${SITE.roleLong}`,
   description: SITE.tagline,
 };
 

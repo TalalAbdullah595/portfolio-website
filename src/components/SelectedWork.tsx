@@ -2,12 +2,14 @@ import Link from "next/link";
 import Icon from "@/components/Icon";
 import Magnetic from "@/components/Magnetic";
 import WorkCard from "@/components/WorkCard";
+import { projectImages } from "@/lib/images";
 import { SYSTEMS, GAMES, type Project } from "@/data/content";
 
 const by = (arr: Project[], id: string) => arr.find((x) => x.id === id)!;
 
-const FEATURE = [by(SYSTEMS, "combat-revamp"), by(SYSTEMS, "roblox-website")];
-const REST = [by(SYSTEMS, "pack-opening"), by(GAMES, "saudi-heritage"), by(SYSTEMS, "cyber-jump")];
+/* two wide cards fill the first row, three standard cards the second */
+const FEATURE = [by(SYSTEMS, "combat-revamp"), by(GAMES, "house-disaster")];
+const REST = [by(SYSTEMS, "the-forge"), by(SYSTEMS, "roblox-website"), by(SYSTEMS, "gun-system")];
 const TOTAL = SYSTEMS.length + GAMES.length;
 
 export default function SelectedWork() {
@@ -21,12 +23,12 @@ export default function SelectedWork() {
         <p className="section-lead reveal" data-delay="120">A few favourites from 60+ shipped systems and the games they power.</p>
       </div>
       <div className="work-grid">
-        {FEATURE.map((item) => <WorkCard key={item.id} item={item} feat />)}
-        {REST.map((item) => <WorkCard key={item.id} item={item} />)}
+        {FEATURE.map((item) => <WorkCard key={item.id} item={item} cover={projectImages(item.id)[0]} feat />)}
+        {REST.map((item) => <WorkCard key={item.id} item={item} cover={projectImages(item.id)[0]} />)}
       </div>
       <div style={{ textAlign: "center", marginTop: 44 }} className="reveal">
         <Magnetic strength={0.3}>
-          <Link href="/projects" className="btn btn-accent btn-lg">Browse the full archive — {TOTAL} builds <Icon name="arrow" size={20} className="arr" /></Link>
+          <Link href="/projects" className="btn btn-accent btn-lg">Browse all {TOTAL} builds <Icon name="arrow" size={20} className="arr" /></Link>
         </Magnetic>
       </div>
     </section>

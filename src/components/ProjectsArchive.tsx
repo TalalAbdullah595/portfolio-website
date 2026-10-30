@@ -13,7 +13,7 @@ type Tab = "systems" | "games";
 /* Projects archive: Systems / Full Games tabs plus engagement-tier filters.
    Panel content remounts on every switch so cards re-run their staggered
    reveal, mirroring the prototype's full re-render. */
-export default function ProjectsArchive() {
+export default function ProjectsArchive({ covers }: { covers: Record<string, string | undefined> }) {
   const [tab, setTab] = useState<Tab>("systems");
   const [tier, setTier] = useState<Tier>("All");
   const [swapping, setSwapping] = useState(false);
@@ -48,14 +48,17 @@ export default function ProjectsArchive() {
     }
   };
 
-  const systems = SYSTEMS.filter((x) => tier === "All" || x.tier === tier);
+  /* featured first: wide cards span 3 of 6 columns, so a standard card wedged
+     between them leaves a dead gap in the row */
+  const systems = SYSTEMS.filter((x) => tier === "All" || x.tier === tier)
+    .sort((a, b) => Number(b.featured) - Number(a.featured));
 
   return (
     <>
       <header className="arc-hero">
         <span className="eyebrow reveal">My portfolio</span>
         <h1 className="reveal">Work I&apos;ve<br /><span className="stroke">shipped.</span></h1>
-        <p className="lead reveal">A complete look at what I&apos;ve built — the reusable systems I script and the full games they power. Pick a tab, filter by engagement, and open any card for the complete project overview.</p>
+        <p className="lead reveal">A complete look at what I&apos;ve built: the reusable systems I script and the full games they power. Pick a tab, filter by engagement, and open any card for the complete project overview.</p>
 
         <div className="tabbar-wrap reveal" ref={tabbarRef}>
           <div className="tabbar" role="tablist">
@@ -80,7 +83,7 @@ export default function ProjectsArchive() {
           {systems.length
             ? (
               <div className="arc-grid" key={tier}>
-                {systems.map((item) => <WorkCard key={item.id} item={item} feat={item.featured} className="reveal" />)}
+                {systems.map((item) => <WorkCard key={item.id} item={item} cover={covers[item.id]} feat={item.featured} className="reveal" />)}
               </div>
             )
             : <div className="empty-note">No systems in this category yet.</div>}
@@ -90,7 +93,7 @@ export default function ProjectsArchive() {
       {tab === "games" && (
         <section className={"arc-panel" + (swapping ? " swapping" : "")}>
           <div className="arc-grid games">
-            {GAMES.map((item) => <WorkCard key={item.id} item={item} className="reveal" />)}
+            {GAMES.map((item) => <WorkCard key={item.id} item={item} cover={covers[item.id]} className="reveal" />)}
           </div>
         </section>
       )}

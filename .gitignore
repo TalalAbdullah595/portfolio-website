@@ -2,6 +2,12 @@
 
 # dependencies
 /node_modules
+
+# contact form submissions
+/.data
+
+# PNG originals kept as a local backup — the WebP versions in public/ are what ship
+/_original-screenshots
 /.pnp
 .pnp.*
 .yarn/*

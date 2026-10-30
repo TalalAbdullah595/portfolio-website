@@ -1,5 +1,3 @@
-import { readdirSync } from "node:fs";
-import { join } from "node:path";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +9,7 @@ import ReadProgress from "@/components/ReadProgress";
 import VideoEmbed from "@/components/VideoEmbed";
 import RevealFx from "@/components/RevealFx";
 import PageFooter from "@/components/PageFooter";
+import { projectImages } from "@/lib/images";
 import { SITE, SYSTEMS, GAMES, getProject, projectType, type Outcome, type Project } from "@/data/content";
 
 export function generateStaticParams() {
@@ -21,21 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const item = getProject(slug);
   if (!item) return {};
-  return { title: `${item.name} — ${SITE.name}`, description: item.summary };
-}
-
-/* Read at build time so dropping a file into public/projects/<id>/ is all it
-   takes — no code edit per screenshot. Filenames sort into display order
-   (cover, shot1, shot2); a project's own `images` overrides this. */
-function projectImages(id: string): string[] {
-  try {
-    return readdirSync(join(process.cwd(), "public", "projects", id))
-      .filter((f) => /\.(webp|avif|png|jpe?g)$/i.test(f))
-      .sort()
-      .map((f) => `/projects/${id}/${f}`);
-  } catch {
-    return []; // no folder yet
-  }
+  return { title: `${item.name} · ${SITE.name}`, description: item.summary };
 }
 
 function Stat({ o }: { o: Outcome }) {
@@ -107,7 +92,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </header>
 
         <section className="proj-media">
-          {item.video && <VideoEmbed id={item.video} title={`${item.name} — devlog`} />}
+          {item.video && <VideoEmbed id={item.video} title={`${item.name} devlog`} />}
           <div className="media-grid reveal">
             {images.length
               ? images.slice(0, 3).map((src, i) => (
@@ -122,9 +107,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               ))
               : (
                 <>
-                  <div className="media-slot media-main">Main screenshot of {item.name} — coming soon</div>
-                  <div className="media-slot media-side">Detail shot — coming soon</div>
-                  <div className="media-slot media-side">Detail shot — coming soon</div>
+                  <div className="media-slot media-main">Main screenshot of {item.name}, coming soon</div>
+                  <div className="media-slot media-side">Detail shot, coming soon</div>
+                  <div className="media-slot media-side">Detail shot, coming soon</div>
                 </>
               )}
           </div>

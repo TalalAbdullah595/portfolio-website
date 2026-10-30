@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import Icon from "@/components/Icon";
 import type { Accent, Project } from "@/data/content";
@@ -6,16 +7,28 @@ const tintFor = (accent: Accent) =>
   accent === "primary" ? "t3" : accent === "secondary" ? "t2" : accent === "accent" ? "t4" : "t1";
 const monoColor = (accent: Accent) => `var(--${accent || "secondary"})`;
 
-/* Chunky monogram project card, shared by Selected Work and the archive */
-export default function WorkCard({ item, feat = false, className = "" }: {
+/* Project card. Shows the cover screenshot when one exists, falling back to
+   the chunky monogram so a project with no images still looks deliberate. */
+export default function WorkCard({ item, cover, feat = false, className = "" }: {
   item: Project;
+  cover?: string;
   feat?: boolean;
   className?: string;
 }) {
   return (
     <Link className={`work-card card spotlight lift${feat ? " feat" : ""}${className ? " " + className : ""}`} href={`/projects/${item.id}`}>
       <div className={"thumb " + tintFor(item.accent)}>
-        <span className="glyph glyph3d txt" style={{ color: monoColor(item.accent), fontSize: feat ? 104 : 76 }}>{item.mono}</span>
+        {cover ? (
+          <Image
+            className="thumb-img"
+            src={cover}
+            alt=""
+            fill
+            sizes={feat ? "(max-width: 980px) 100vw, 620px" : "(max-width: 980px) 50vw, 400px"}
+          />
+        ) : (
+          <span className="glyph glyph3d txt" style={{ color: monoColor(item.accent), fontSize: feat ? 104 : 76 }}>{item.mono}</span>
+        )}
         <span className="badge-tier chip solid">{item.tier}</span>
         {item.featured && <span className="star-flag"><Icon name="star" size={22} /></span>}
       </div>

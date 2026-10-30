@@ -1,10 +1,10 @@
 import Icon from "@/components/Icon";
 import { HOME, type Engagement } from "@/data/content";
 
-const tierClass = (t: Engagement["tier"]) =>
-  t === "sprint" ? "t-sprint" : t === "project" ? "t-project" : "t-partner";
+const tierClass = (t: Engagement["tier"]) => `t-${t}`;
+/* matches the ribbon colour on the same card */
 const btnClass = (t: Engagement["tier"]) =>
-  t === "project" ? "btn-primary" : t === "partner" ? "btn-accent" : "btn-ghost";
+  t === "loop" ? "btn-secondary" : t === "game" ? "btn-primary" : "btn-accent";
 
 export default function Engagements() {
   return (
@@ -29,6 +29,10 @@ export default function Engagements() {
           </div>
         ))}
       </div>
+      {/* catches the single-system and fix work that the three packages don't cover */}
+      <p className="eng-note reveal">
+        <b>Already have a game?</b> One system built, or an existing one fixed, scoped as its own job. <a href="#contact">Just ask</a>.
+      </p>
       <div className="caps reveal">
         <div className="caps-h">Every engagement draws on the same toolbox</div>
         <div className="caps-row">

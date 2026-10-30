@@ -143,6 +143,7 @@ section { position: relative; }
 .btn:hover { transform: translateY(-3px) scale(1.03); box-shadow: var(--sh-2); }
 .btn:active { transform: translateY(2px) scale(.98); box-shadow: 0 2px 0 -1px var(--ink); }
 .btn-primary { background: var(--primary); color: var(--on-primary); }
+.btn-secondary { background: var(--secondary); color: var(--on-secondary); }
 .btn-accent  { background: var(--accent);  color: var(--on-accent); }
 .btn-ghost   { background: color-mix(in oklab, var(--surface) 70%, transparent); }
 .btn-lg { font-size: 19px; padding: 17px 30px; }
@@ -298,7 +299,7 @@ html.anim-on .reveal.in { opacity: 1; transform: none; transition: opacity .7s v
   0% { scale: 1 1; } 30% { scale: 1.12 .88; } 50% { scale: .92 1.08; }
   70% { scale: 1.05 .96; } 100% { scale: 1 1; }
 }
-.btn-primary:hover, .btn-accent:hover { animation: jelly .55s var(--spring-soft); }
+.btn-primary:hover, .btn-secondary:hover, .btn-accent:hover { animation: jelly .55s var(--spring-soft); }
 
 /* Eyebrow bar draws in on reveal */
 .eyebrow::before { transform-origin: 0 50%; }
@@ -330,7 +331,7 @@ html.anim-on .reveal.rv-pop { transform: translateY(18px) scale(.92); }
 html.anim-on .reveal.in.rv-left, html.anim-on .reveal.in.rv-right, html.anim-on .reveal.in.rv-pop { transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn-primary:hover, .btn-accent:hover,
+  .btn-primary:hover, .btn-secondary:hover, .btn-accent:hover,
   .divider-blocks i, .brand .mark,
   html.anim-on .reveal.in.eyebrow::before { animation: none !important; }
   html.anim-on .reveal.eyebrow::before { transform: none; }
@@ -514,6 +515,9 @@ html.anim-on .reveal.in.rv-left, html.anim-on .reveal.in.rv-right, html.anim-on 
 .work-card.feat .thumb { aspect-ratio: 16/9; }
 .work-card .glyph { font-size: clamp(60px, 9vw, 104px); filter: drop-shadow(0 8px 0 rgba(0,0,0,.35)); transition: transform .4s var(--spring); }
 .work-card:hover .glyph { transform: scale(1.12) rotate(-4deg); }
+.work-card .thumb-img { object-fit: cover; transition: transform .45s var(--spring-soft); }
+.work-card:hover .thumb-img { transform: scale(1.05); }
+@media (prefers-reduced-motion: reduce) { .work-card:hover .thumb-img { transform: none; } }
 .work-card .badge-tier { position:absolute; top:14px; left:14px; }
 .work-card .star-flag { position:absolute; top:14px; right:14px; font-size: 22px; filter: drop-shadow(0 3px 0 var(--ink)); animation: bob 3.4s ease-in-out infinite; }
 .work-body { padding: 20px 22px 24px; }
@@ -538,8 +542,9 @@ html.anim-on .reveal.in.rv-left, html.anim-on .reveal.in.rv-right, html.anim-on 
 .eng-card { display:flex; flex-direction:column; padding: 30px 28px 32px; }
 .eng-card.pop { background: var(--surface-2); transform: translateY(-6px); }
 .eng-card .ribbon { align-self:flex-start; margin-bottom: 18px; padding: 6px 14px; border-radius:999px; font-family: var(--font-fredoka), sans-serif; font-weight:600; font-size:13px; letter-spacing:.06em; text-transform:uppercase; border: 2px solid var(--ink); box-shadow: 0 2px 0 -1px var(--ink); }
-.eng-card.t-sprint .ribbon { background: var(--secondary); color: var(--on-secondary); }
-.eng-card.t-project .ribbon { background: var(--primary); color: var(--on-primary); }
+/* ribbon and button share a colour per card: blue, coral, lime */
+.eng-card.t-loop .ribbon { background: var(--secondary); color: var(--on-secondary); }
+.eng-card.t-game .ribbon { background: var(--primary); color: var(--on-primary); }
 .eng-card.t-partner .ribbon { background: var(--accent); color: var(--on-accent); }
 .eng-card h3 { font-size: clamp(26px, 3vw, 34px); }
 .eng-card .price { font-family: var(--font-fredoka), sans-serif; font-weight:500; color: var(--text-dim); margin: 10px 0 4px; font-size: 16px; }
@@ -549,6 +554,10 @@ html.anim-on .reveal.in.rv-left, html.anim-on .reveal.in.rv-right, html.anim-on 
 .eng-feats li { display:flex; gap: 11px; align-items:flex-start; font-size: 15.5px; }
 .eng-feats li .tick { flex:none; width:22px; height:22px; border-radius:7px; display:grid; place-items:center; background: var(--accent); color: var(--on-accent); border:2px solid var(--ink); font-size:13px; font-weight:900; margin-top:1px; box-shadow:0 2px 0 -1px var(--ink); }
 .eng-card .btn { margin-top: auto; justify-content:center; }
+.eng-note { text-align: center; margin-top: 30px; color: var(--text-dim); font-size: 16px; text-wrap: pretty; }
+.eng-note b { color: var(--text); font-weight: 800; }
+.eng-note a { color: var(--accent); font-weight: 800; border-bottom: 2px solid color-mix(in oklab, var(--accent) 45%, transparent); }
+.eng-note a:hover { border-bottom-color: var(--accent); }
 .caps { margin-top: 40px; padding: 26px; border-radius: var(--r); border: 1.5px dashed color-mix(in oklab, var(--text-dim) 40%, transparent); }
 .caps .caps-h { font-family: var(--font-fredoka), sans-serif; font-weight:600; font-size: 15px; color: var(--text-dim); margin-bottom: 16px; letter-spacing:.04em; }
 .caps-row { display:flex; flex-wrap:wrap; gap: 10px; }
@@ -612,6 +621,9 @@ html.anim-on .reveal.in.rv-left, html.anim-on .reveal.in.rv-right, html.anim-on 
 .field-row { display:grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .contact-form .btn { justify-content:center; margin-top: 6px; }
 .form-ok { display:flex; align-items:center; gap:12px; padding: 16px; border-radius: 14px; background: color-mix(in oklab, var(--accent) 24%, var(--surface)); border: 2px solid var(--ink); font-weight:800; }
+.form-err { display:flex; align-items:center; gap:12px; padding: 14px 16px; border-radius: 14px; background: color-mix(in oklab, var(--primary) 26%, var(--surface)); border: 2px solid var(--ink); font-weight:700; font-size: 15px; }
+.field label .opt { font-family: var(--font-nunito), sans-serif; font-weight:700; font-size: 11px; letter-spacing:.08em; text-transform: uppercase; color: var(--text-dim); opacity:.75; margin-left: 6px; }
+.contact-form .btn:disabled { opacity:.65; cursor: progress; transform:none; }
 @media (max-width: 820px){ .contact-card { grid-template-columns: 1fr; } .contact-aside { border-right:none; border-bottom: var(--outline-w) solid var(--ink); } .field-row{ grid-template-columns:1fr; } }
 
 /* ---------- FOOTER ---------- */
