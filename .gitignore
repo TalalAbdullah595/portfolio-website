@@ -8,6 +8,9 @@
 
 # PNG originals kept as a local backup — the WebP versions in public/ are what ship
 /_original-screenshots
+
+# original design handoff — reference only, not part of the built site
+/design_handoff_portfolio
 /.pnp
 .pnp.*
 .yarn/*
