@@ -583,7 +583,7 @@ export const HOME = {
   engagements: [
     {
       tier: "loop", ribbon: "Playable", name: "Core Game Loop",
-      price: { pre: "from", val: "$399", post: "/ 1–4 weeks" },
+      price: { pre: "from", val: "$279", post: "/ 1–4 weeks" },
       desc: "A playable loop you can put in front of real players, start to finish.",
       feats: [
         "Playable end to end, not a prototype",
@@ -596,7 +596,7 @@ export const HOME = {
     },
     {
       tier: "game", ribbon: "Launch-ready", name: "Full Game",
-      price: { pre: "from", val: "$4,999", post: "/ 8–12 weeks" },
+      price: { pre: "from", val: "$2,999", post: "/ 8–12 weeks" },
       desc: "A complete game: scripted, optimized, monetized, ready to publish.",
       feats: [
         "A finished game, not a pile of systems",
